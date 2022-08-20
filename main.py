@@ -19,15 +19,20 @@ from player import Player
 # curses
 # trash
 
+
 players = []
+
+P = Player()
+players.append(P)
+
 
 history = []
 
 while True:
-    # get next player
-    # compute possibilties
-    # oh god...
-    # we're doing this recursively
     
-    check_end_game()
+    for player in players:
+        print(f"it's {player}'s turn")
+
+    break
+ 
 

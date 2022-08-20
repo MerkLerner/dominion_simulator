@@ -3,11 +3,16 @@ class Card:
         self,
         type,
         cost,
-        attack
+        attack=False,
+        v_points=0,
+        value=0
         ):
+        self.cost = cost
         self.type = type   #
-        self.cost = 0
         self.attack = attack
+
+        self.v_points = v_points
+        self.value = value
 
     def discard(self):
         # maybe cards can have an owner
