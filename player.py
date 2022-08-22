@@ -58,7 +58,7 @@ class Player:
             Copper(),
             Copper(),
             Copper(),
-            Copper()
+            Copper(),
             Estate(),
             Estate(),
             Estate()
