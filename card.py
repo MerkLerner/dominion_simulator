@@ -1,6 +1,5 @@
 class Card:
-    def __init__(
-        self,
+    def __init__(self,
         type,
         cost,
         attack=False,
@@ -17,8 +16,3 @@ class Card:
     def discard(self):
         # maybe cards can have an owner
         pass
-
-
-
-
-

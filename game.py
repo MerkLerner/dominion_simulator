@@ -1,6 +1,8 @@
 class Game:
-    def __init__(self, _Places):
-        self.places = _Places()
+    def __init__(self):
+        self.piles = None
+        self.players = []
+
 
     def is_game_over(self):
         gameOver = False

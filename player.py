@@ -2,7 +2,8 @@ from test_cards import Copper, Estate
 import random
 
 class Player:
-    def __init__(self, hand, deck, discard):
+    def __init__(self, hand, deck, discard, game):
+        self.game = game
         self.actions = 1
         self.buys = 1
         self.money = 0
@@ -21,7 +22,7 @@ class Player:
         # but if no AI,
         # only needed at end game
 
-    def play(self, card):
+    def play(self, card, game):
         card.run(self)
 
     def draw(self, num):
@@ -70,4 +71,6 @@ class Player:
 
     # move card
 
-    # buy
+    def buy(self, card_stack):
+        pass
+        # move card from home
