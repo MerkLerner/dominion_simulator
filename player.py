@@ -43,7 +43,7 @@ class Player:
         for _ in range(num):
             card = self.deck.pop(0)
             
-            if card.type == "money":
+            if card.type == "treasure":
                 self.money += card.value
 
             self.hand.append(card)
