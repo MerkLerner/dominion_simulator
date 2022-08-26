@@ -1,5 +1,18 @@
 from card import Card
 
+class Cellar(Card):
+    def __init__(self):
+        super().__init__("action", 2)
+
+    def run(self, player, game):
+        to_discard = []
+
+        # not checking all possibilities
+        for card in player.hand:
+            if card.type == 'vcard' \
+                or card.type == 'curse':
+                player.discard(card)
+
 class Market(Card):
     def __init__(self):
         super().__init__("action", 5)
@@ -59,7 +72,6 @@ class CouncilRoom(Card):
     def run(self, player, game):
         player.draw(4) 
         player.buys += 1
-
 
 
 # Treasure Cards
@@ -122,38 +134,11 @@ class Province(Card):
           v_points=6
         )
 
-if __name__ == "__main__":
-    from player import Player
-    from places import Piles
-    from game import Game
-
-    game = Game()
-    piles = Piles()
-
-    Markets = []
-    for _ in range(10):
-        Markets.append(Market())
-
-    piles.kingdom_cards.append(Markets)
-    game.piles = piles
-
-    players = [
-        Player([],[],[], game)
-    ]
-
-    game.players = players
-
-    while True:
-        for p in players:
-            can_buy = []
-            for card_stack in piles.kingdom_cards:
-                # remember that there'll be a None
-                # one pile depleted
-                if card_stack[0].cost <= p.money:
-                    can_buy.append(card_stack)
-
-            print(p.money, can_buy, len( p.hand))
-
-            break
-
-        break
+# curses
+class Curse(Card):
+    def __init__(self):
+        super().__init__( 
+          "curse",
+          0,
+          v_points=-1
+        )

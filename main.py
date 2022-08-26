@@ -12,7 +12,7 @@ game = Game()
 piles = Piles()
 
 Markets = []
-for _ in range(10):
+for _ in range(10): 
     Markets.append(Market())
 
 piles.kingdom_cards.append(Markets)
@@ -26,16 +26,9 @@ game.players = players
 
 while True:
     for p in players:
-        can_buy = []
-        for card_stack in piles.kingdom_cards:
-            # remember that there'll be a None
-            # one pile depleted
-            if card_stack[0].cost <= p.money:
-                can_buy.append(card_stack)
-
-        print(p.money, can_buy, len( p.hand))
-
+        p.action_phase()
+        p.buy_phase()
+        p.clean_up()
         break
-
     break
 
