@@ -10,17 +10,19 @@ from test_cards import *
 
 game = Game()
 piles = Piles()
+game.piles = piles
 
+# cuidado hombre
 Markets = []
 for _ in range(10): 
     Markets.append(Market())
 
 piles.kingdom_cards.append(Markets)
-game.piles = piles
 
-players = [
+players = {
+    Player([],[],[], game),
     Player([],[],[], game)
-]
+}
 
 game.players = players
 
@@ -32,3 +34,33 @@ while True:
         break
     break
 
+#  wee wooo
+p1 = Player([],[],[],game)
+p2 = Player([],[],[],game)
+game.players = {p1, p2}
+
+p1.play(Cellar(), mode="test")
+
+p1.play(CouncilRoom(), mode="test")
+
+p1.play(Festival(), mode="test")
+
+p1.play(Laboratory(), mode="test")
+
+p1.play(Market(), mode="test")
+
+p1.play(Militia(), mode="test")
+
+p1.play(Moat(), mode="test")
+
+p1.play(Village(), mode="test")
+
+p1.play(Poacher(), mode="test")
+
+p1.play(Smithy(), mode="test")
+
+p1.play(Copper(), mode="test")
+
+p1.play(Silver(), mode="test")
+
+p1.play(Gold(), mode="test")

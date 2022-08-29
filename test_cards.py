@@ -1,17 +1,41 @@
 from card import Card
+import random
 
 class Cellar(Card):
     def __init__(self):
         super().__init__("action", 2)
 
     def run(self, player, game):
-        to_discard = []
-
         # not checking all possibilities
         for card in player.hand:
             if card.type == 'vcard' \
                 or card.type == 'curse':
                 player.discard(card)
+
+class CouncilRoom(Card):
+    def __init__(self):
+        super().__init__('action', 5)
+
+    def run(self, player, game):
+        player.draw(4) 
+        player.buys += 1
+
+class Festival(Card):
+    def __init__(self):
+        super().__init__('action', 5)
+
+    def run(self, player, game):
+        player.actions += 2
+        player.buys += 1
+        player.money += 2
+
+class Laboratory(Card):
+    def __init__(self):
+        super().__init__("action", 5)
+
+    def run(self, player, game):
+        player.draw(2)
+        player.actions += 1
 
 class Market(Card):
     def __init__(self):
@@ -23,13 +47,34 @@ class Market(Card):
         player.buys += 1
         player.money += 1
 
-class Village(Card):
+class Militia(Card):
     def __init__(self):
-        super().__init__("action", 3)
+        super().__init__("action", 4, attack=True)
 
     def run(self, player, game):
-        player.draw(1)
-        player.actions += 2
+        player.money += 2
+
+        other_players = game.players - {player}
+        for p in other_players:
+            # gotta offer them the choice tho
+            # if they have a harbinger
+            # there might be value to discarding?
+            # hm...idk tho. if they kept cards,
+            # they'd be discarded at end of turn. 
+            if p.has_moat:
+                continue
+
+            while len(p.hand) > 3:
+                # random!!!
+                choice = random.choice(p.hand)
+                p.discard(choice)
+
+class Moat(Card):
+    def __init__(self):
+        super().__init__("action", 2, reaction=True)
+
+    def run(self, player, game):
+        player.draw(2) 
 
 # still need to implement the discard feature
 class Poacher(Card):
@@ -48,30 +93,13 @@ class Smithy(Card):
     def run(self, player, game):
         player.draw(3)
 
-class Laboratory(Card):
+class Village(Card):
     def __init__(self):
-        super().__init__("action", 5)
+        super().__init__("action", 3)
 
     def run(self, player, game):
-        player.draw(2)
-        player.action += 1
-
-class Festival(Card):
-    def __init__(self):
-        super().__init__('action', 5)
-
-    def run(self, player, game):
+        player.draw(1)
         player.actions += 2
-        player.buys += 1
-        player.money += 2
-
-class CouncilRoom(Card):
-    def __init__(self):
-        super().__init__('action', 5)
-
-    def run(self, player, game):
-        player.draw(4) 
-        player.buys += 1
 
 
 # Treasure Cards
@@ -133,6 +161,7 @@ class Province(Card):
           8,
           v_points=6
         )
+
 
 # curses
 class Curse(Card):

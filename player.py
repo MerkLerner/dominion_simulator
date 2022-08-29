@@ -1,4 +1,4 @@
-from test_cards import Copper, Estate
+from test_cards import *
 import random
 
 class Player:
@@ -10,7 +10,8 @@ class Player:
         self.money = 0
 
         self.hand = []
-        self.discard = []
+        self.in_play = []
+        self.discard_pile = []
         self.deck = self.init_deck()
         self.draw(5)
 
@@ -49,28 +50,44 @@ class Player:
 
     def clean_up(self):
         print('clean up')
+        # there may be a more performant op here
+        self.discard_pile += self.in_play + self.hand
+        self.in_play = [] # there also might be a better option to clear it
+        self.draw(5)
+        
+        self.money = 0
+        self.buys = 1
+        self.actions = 1
 
-    def play(self, card, game):
-        card.run(self)
+    def play(self, card, mode="prod"):
+        print(f'play {card.__class__.__name__}')
+        if mode == "prod":
+            self.in_play.append(card)
+            self.hand.remove(card)
+
+        card.run(self, self.game)
+        # think of cards that have 
+        # deferred effects
+
+        # also for testing and one offs
+        # might not 
 
     def draw(self, num):
-        # think about deck running out
-        if len(self.deck) == 0:
-            print('hoopa')
-
-        # essentially - 
-        # if deck empty
-        #    shuffle discard
-        #    deck = discard
-        #    discard clear
-        # if discard empty
-        #    fizzle
-        # otherwise, 
-        #   draw
-
+        print(f'attempting to draw {num} cards')
         for _ in range(num):
+            if len(self.deck) == 0: breakpoint()
+
+            if len(self.deck) == 0:   # lets clean up later
+                if len(self.discard_pile) == 0:
+                    break # if u can't draw no more
+                # breakpoint()
+                self.shuffle_discard_pile()
+
+            print('  attempting to draw')
             card = self.deck.pop(0)
-            
+            print(f'  drew {card}')
+
+            # shouldn't do this
             if card.type == "treasure":
                 self.money += card.value
 
@@ -79,11 +96,27 @@ class Player:
     def discard(self, card):
         # not guaranteed to be the 
         # same card if there are duplicates
-        temp = self.hand.remove(card)
+        self.hand.remove(card)
 
         # careful, make sure we're
         # dealing with piles in uniform ways
-        self.discard.append(temp)
+        self.discard_pile.append(card)
+
+    def buy(self, card_stack):
+        pass
+        # move card from home
+
+    def shuffle_discard_pile(self):
+        print('  reshuffle')
+        print(f"      here's the deck {self.deck}")
+        print(f"      here's the discard pile {self.discard_pile}")
+
+        # breakpoint()
+        random.shuffle(self.discard_pile)
+        self.deck = self.discard_pile
+        self.discard_pile = []
+        
+        print(f"      here's the deck after: {self.deck}")
 
     def init_deck(self):
         deck = [
@@ -103,8 +136,9 @@ class Player:
 
         return deck
 
-    # move card
-
-    def buy(self, card_stack):
-        pass
-        # move card from home
+    @property
+    def has_moat(self):
+        for card in self.hand:
+            if isinstance(card, Moat):
+                return True
+        return False

@@ -11,7 +11,6 @@ class Stack:
 
         self._len = size
 
-
 class Piles:
     def __init__(self,):
         # come back here later
@@ -24,13 +23,13 @@ class Piles:
         ]
 
         self.money_cards = [
-            Stack(Copper, 8),
-            Stack(Silver, 8),
-            Stack(Gold, 8)
+            Stack(Copper, 60),
+            Stack(Silver, 40),
+            Stack(Gold, 30)
         ]
 
         self.curses = [
-            Stack(Curse, 30)
+            Stack(Curse, 10)
         ]
 
         # I'll want to be able to 
@@ -42,7 +41,6 @@ class Piles:
             + self.money_cards \
             + self.curses \
             + self.kingdom_cards
-
 
 class Trash:
     def __init__(self):

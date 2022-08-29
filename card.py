@@ -3,6 +3,7 @@ class Card:
         type,
         cost,
         attack=False,
+        reaction=False,
         v_points=0,
         value=0
         ):
