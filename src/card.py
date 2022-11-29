@@ -14,6 +14,5 @@ class Card:
         self.v_points = v_points
         self.value = value
 
-    def discard(self):
-        # maybe cards can have an owner
-        pass
+    def __repr__(self) -> str:
+        return self.__class__.__name__

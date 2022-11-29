@@ -54,14 +54,14 @@ class Militia(Card):
     def run(self, player, game):
         player.money += 2
 
-        other_players = game.players - {player}
-        for p in other_players:
+        for p in game.players:
             # gotta offer them the choice tho
             # if they have a harbinger
             # there might be value to discarding?
             # hm...idk tho. if they kept cards,
             # they'd be discarded at end of turn. 
-            if p.has_moat:
+            if (p.has_moat or
+                p == self):
                 continue
 
             while len(p.hand) > 3:

@@ -1,0 +1,15 @@
+- Insert is_game_over() into either buy or some get() function
+
+- potentially use decorators to intercept history? idk...
+def try_all_cards(): or something
+hm....but some of the api functions alter the playing field.
+yeesh
+I feel like we just gotta save the fun version and then rewrite 
+for all possibilities
+
+- would be nice to be able to use the API just to simulate a game,
+but there's a big difference between choosing a choice randomly,
+choosing a choice tactically based on some AI, and checking every
+choice...
+
+- do a "release" branch. 

@@ -9,25 +9,18 @@ from game import Game
 from test_cards import *
 
 game = Game()
-piles = Piles()
-game.piles = piles
 
-# cuidado hombre
-Markets = []
-for _ in range(10): 
-    Markets.append(Market())
+# # cuidado hombre
+# Markets = []
+# for _ in range(10): 
+#     Markets.append(Market())
 
-piles.kingdom_cards.append(Markets)
+# piles.kingdom_cards.append(Markets)
 
-players = {
-    Player([],[],[], game),
-    Player([],[],[], game)
-}
-
-game.players = players
+# 
 
 while True:
-    for p in players:
+    for p in game.players:
         p.action_phase()
         p.buy_phase()
         p.clean_up()
